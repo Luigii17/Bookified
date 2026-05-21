@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { process } from "zod/v4/core";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
