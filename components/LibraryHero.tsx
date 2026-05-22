@@ -20,7 +20,7 @@ const steps = [
 
 export default function LibraryHero() {
   return (
-    <section className="library-hero-wrapper pt-28 mb-10 md:mb-16">
+    <section className="library-hero-wrapper mb-10 md:mb-16">
       <div className="library-hero-card">
         {/* Left – Heading, description, button */}
         <div className="hero-left">
@@ -66,7 +66,7 @@ export default function LibraryHero() {
           font-family: 'Source Sans 3', sans-serif;
           padding: 2rem;
           background: #f5f0e8;
-          min-height: 100vh;
+					 /* min-height: 100vh;*/
           display: flex;
           align-items: center;
           justify-content: center;

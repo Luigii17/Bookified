@@ -14,8 +14,6 @@ import {
 import { useRouter } from "next/navigation";
 import { parsePDFFile } from "@/lib/utils";
 import { upload } from "@vercel/blob/client";
-import { access } from "fs";
-import { detectContentType } from "next/dist/server/image-optimizer";
 
 const schema = z.object({
   pdf: z.instanceof(File, { message: "Please upload a PDF file" }),
@@ -378,7 +376,16 @@ export default function BookUploadForm() {
         fileSize: pdfFile.size,
       });
 
-      if (!book.success) throw new Error("Failed to create book");
+      if (!book || !book.success) {
+        // Pinta el error real en la consola del navegador para inspeccionarlo
+        console.error("Error devuelto por el servidor:", book?.error);
+
+        // Muestra el mensaje en un toast para que lo veas de inmediato
+        toast.error(
+          `Backend Error: ${book?.error?.message || "Check server console"}`,
+        );
+        return; // Detén la ejecución aquí de forma segura sin romper la app
+      }
 
       if (book.alreadyExists) {
         toast.info("Book with same title already exists");
@@ -392,11 +399,12 @@ export default function BookUploadForm() {
         parsedPDF.content,
       );
 
-      if (!segments || segments.success) {
+      if (!segments || !segments.success) {
         toast.error("Failed to save book segments");
         throw new Error("Failed to save book segments");
       }
 
+      console.log("¡Intentando ir al HOME ahora mismo!");
       router.push("/");
     } catch (error) {
       console.error(error);
