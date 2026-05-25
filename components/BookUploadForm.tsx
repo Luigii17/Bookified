@@ -382,7 +382,7 @@ export default function BookUploadForm() {
 
         // Muestra el mensaje en un toast para que lo veas de inmediato
         toast.error(
-          `Backend Error: ${book?.error?.message || "Check server console"}`,
+          `Backend Error: ${(book?.error as any)?.message || "Check server console"}`,
         );
         return; // Detén la ejecución aquí de forma segura sin romper la app
       }
