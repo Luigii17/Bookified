@@ -318,7 +318,7 @@ export default function BookUploadForm() {
       const existCheck = await checkBookExists(data.title);
       if (existCheck.exists && existCheck.book) {
         toast.info("Book with same title already exists");
-        router.push(`/books/${book.data.slug}`);
+        router.push(`/books/${existCheck.book.slug}`);
         return;
       }
 
